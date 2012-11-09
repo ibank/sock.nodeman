@@ -3,74 +3,69 @@
  *
  * @author nanhapark
  */
-var t = document.getElementById('socket.io');
-if (t) document.body.removeChild(t);
+(function() {
+  if (!jQuery) { alert('not found jQuery'); return }
 
-var URL = 'http://socket.nodeman.org';
+  $('#socketio').remove();
 
-var s = document.createElement('script');
-s.id = 'socket.io';
-s.type = 'text/javascript';
-s.src = URL + '/socket.io/socket.io.js';
-s.onload = function() {
-  console.log('io load complete');
-  //
-  // fire keyboard event
-  //
-  var fireKey = function(keycode) {
-    ["keyup", "keydown"].forEach(function(a) {
-      var e = jQuery.Event(a);
-      e.keyCode = keycode;
-      $(document.body).trigger(e);
+  var URL = 'http://socket.nodeman.org';
+
+  $.getScript(URL + '/socket.io/socket.io.js', function() {
+    console.log('io load complete');
+    //
+    // fire keyboard event
+    //
+    var fireKey = function(keycode) {
+      ["keyup", "keydown"].forEach(function(a) {
+        var e = jQuery.Event(a);
+        e.keyCode = keycode;
+        $(document.body).trigger(e);
+      });
+    };
+    
+    //
+    // left, right keyboard action
+    //
+    var E = {
+      close:  function() {
+        $('#qrcode').fadeOut()
+      },
+      left: function() {
+        fireKey(37)
+      },
+      right: function() {
+        fireKey(39)
+      }
+    };
+
+    //
+    // connect websocket
+    //
+    var s = io.connect(URL);
+    s.on('return', function(data) {
+      if (!E[data]) {
+        alert('not found');
+        return;
+      }
+      E[data]()
     });
-  };
-  
-  //
-  // left, right keyboard action
-  //
-  var E = {
-    close:  function() {
-      document.getElementById('qrcode').style.display = 'none'
-    },
-    left: function() {
-      fireKey(37)
-    },
-    right: function() {
-      fireKey(39)
-    }
-  };
+    
+    //
+    // show qrcode after received socket sessionid
+    //
+    setTimeout(function() {
+      $('#qrcode').remove();
 
-  //
-  // connect websocket
-  //
-  var s = io.connect(URL);
-  s.on('return', function(data) {
-    if (!E[data]) {
-      alert('not found');
-      return;
-    }
-    E[data]()
+      var u2 = URL + '/control/' + s.socket.sessionid;
+      console.log(u2);
+      var a = 'http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=' + u2 + '&chld=H|0';
+      $('<div></div>').attr({id: 'qrcode'}).css({
+        position: 'absolute',
+        top : '10px',
+        left: '10px',
+        boxShadow: '0px 26px 190px rgba(0, 0, 0, 1)',
+        zIndex: 1000000
+      }).html('<img src="' + a + '" border="0">').appendTo(document.body);
+    }, 100);
   });
-  
-  //
-  // show qrcode after received socket sessionid
-  //
-  setTimeout(function() {
-    var o = document.getElementById('qrcode');
-    if (o) document.body.removeChild(o);
-
-    var u2 = URL + '/control/' + s.socket.sessionid;
-    console.log(u2);
-    var a = 'http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=' + u2 + '&chld=H|0';
-    var div = document.createElement('div');
-    div.id = 'qrcode';
-    div.style.position = 'absolute';
-    div.style.top  = '10px';
-    div.style.left = '10px';
-    div.style.boxShadow = '0px 26px 190px rgba(0, 0, 0, 1)';
-    div.style.zIndex = 1000000;
-    div.innerHTML = '<img src="' + a + '" border="0">';
-    document.body.appendChild(div);
-  }, 100);
-};
-document.body.appendChild(s);
+})();
