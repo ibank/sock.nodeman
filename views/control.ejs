@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+	<head>
+    <meta charset="utf-8">
+    <title>Bookmarklet Service :: Controller</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+	</head>
+<body>
+  <div class="container">
+    <div class="p left">
+      <input type="button" data-action="left" value="left">
+    </div>
+    <div class="p right">
+      <input type="button" data-action="right" value="right">
+    </div>
+    <div id="status"></div>
+  </div>
+  <script src="/javascripts/jquery.min.js"></script>
+  <script src="/javascripts/socket.io.js"></script>
+  <script>
+    var sessid = "<%=sessid%>";
+
+    var h = 'http://sock.nodeman.org', s = io.connect(h);
+    
+    s.send(sessid + ':close');
+
+    $('.container').click(function(e) {
+      s.send(sessid + ':' + $(e.target).data('action'));
+    });
+
+    var status;
+    var Status = document.getElementById('status');
+    window.ondevicemotion = function(event) {
+      var ax = event.accelerationIncludingGravity.x * 2;
+      var ay = event.accelerationIncludingGravity.y * 2;
+
+      if(ax > 14 && status != 2){ //move right on device
+         status = 2;
+         s.send(sessid + ':right');
+         Status.innerHTML = 'right';
+      }
+      if(ax < -14 && status != 1){ //move left on device
+         status = 1;
+         s.send(sessid + ':left');
+         Status.innerHTML = 'left';
+      }
+      if(ax > -14 && ax < 14 && status != 3){ //device held steady
+         status = 3;
+         Status.innerHTML = 'center';
+      } 
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+2012-11-09T12:42:37.899Z - crit: Error: not found
+    at Socket.<anonymous> (/home/socket_bookmarklet/app.js:61:13)
+    at Socket.Domain.bind.b (domain.js:201:18)
+    at Socket.EventEmitter.emit [as $emit] (events.js:96:17)
+    at SocketNamespace.handlePacket (/home/socket_bookmarklet/node_modules/socket.io/lib/namespace.js:353:20)
+    at Manager.onClientMessage (/home/socket_bookmarklet/node_modules/socket.io/lib/manager.js:487:38)
+    at WebSocket.Transport.onMessage (/home/socket_bookmarklet/node_modules/socket.io/lib/transport.js:387:20)
+    at Parser.<anonymous> (/home/socket_bookmarklet/node_modules/socket.io/lib/transports/websocket/hybi-16.js:39:10)
+    at Parser.EventEmitter.emit (events.js:96:17)
+    at opcodeHandlers.1.finish (/home/socket_bookmarklet/node_modules/socket.io/lib/transports/websocket/hybi-16.js:288:16)
+    at Parser.opcodeHandlers.1.expectData [as expectHandler] (/home/socket_bookmarklet/node_modules/socket.io/lib/transports/websocket/hybi-16.js:299:15)
