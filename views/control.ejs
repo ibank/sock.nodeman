@@ -21,7 +21,8 @@
   <script>
     var sessid = "<%=sessid%>";
 
-    var h = 'http://sock.nodeman.org', s = io.connect(h);
+    var h = 'http://socket.nodeman.org';
+    var s = io.connect(h);
     
     s.send(sessid + ':close');
 

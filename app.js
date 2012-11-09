@@ -48,7 +48,7 @@ d.on('error', function(e) {
 });
 
 var io = require('socket.io').listen(server);
-io.set('log level', 1);
+//io.set('log level', 1);
 io.sockets.on('connection', function(s) {
   s.on('message', d.bind(function(data)  {
     var a = data.split(':');

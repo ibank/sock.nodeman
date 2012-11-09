@@ -6,13 +6,12 @@
 var t = document.getElementById('socket.io');
 if (t) document.body.removeChild(t);
 
-var WS = 'http://socket.nodeman.org';
-var WEB = 'http://socket.nodeman.org';
+var URL = 'http://socket.nodeman.org';
 
 var s = document.createElement('script');
 s.id = 'socket.io';
 s.type = 'text/javascript';
-s.src = WS + '/socket.io/socket.io.js';
+s.src = URL + '/socket.io/socket.io.js';
 s.onload = function() {
   console.log('io load complete');
   //
@@ -44,7 +43,7 @@ s.onload = function() {
   //
   // connect websocket
   //
-  var s = io.connect(WS);
+  var s = io.connect(URL);
   s.on('return', function(data) {
     if (!E[data]) {
       alert('not found');
@@ -60,7 +59,8 @@ s.onload = function() {
     var o = document.getElementById('qrcode');
     if (o) document.body.removeChild(o);
 
-    var u2 = WEB + '/control/' + s.socket.sessionid;
+    var u2 = URL + '/control/' + s.socket.sessionid;
+    console.log(u2);
     var a = 'http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=' + u2 + '&chld=H|0';
     var div = document.createElement('div');
     div.id = 'qrcode';
