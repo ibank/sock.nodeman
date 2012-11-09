@@ -60,7 +60,7 @@ s.onload = function() {
     var o = document.getElementById('qrcode');
     if (o) document.body.removeChild(o);
 
-    var u2 = WEB + '/control' + s.socket.sessionid;
+    var u2 = WEB + '/control/' + s.socket.sessionid;
     var a = 'http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=' + u2 + '&chld=H|0';
     var div = document.createElement('div');
     div.id = 'qrcode';
