@@ -18,6 +18,7 @@ app.configure(function(){
   app.set('port', process.env.PORT || Config.app.port);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
+  app.set('view options', { layout: true });
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());

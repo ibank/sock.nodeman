@@ -1,56 +1,90 @@
-<!doctype html>
-<html lang="en">
-	<head>
-    <meta charset="utf-8">
-    <title>Bookmarklet Service :: Controller</title>
-    <meta name="viewport" content="width=device-width,user-scalable=no"/>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-	</head>
-<body>
-  <div class="container">
-    <div class="p left">
-      <input type="button" data-action="left" value="left">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Websocket Book Navigator Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="nanhapark <nanhap@gmail.com>">
+    <meta name="keywords" content="node.js,javascript,ECMAScript,Mobile,HTML5,Mobile,Web,nanhapark">
+    <link media="screen" rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Play" />
+    <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+    <link href="/stylesheets/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/stylesheets/docs.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/favicon.ico?20121120" type="image/x-icon">
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="">
+            <ul class="nav">
+              <li class="active">
+                <a href="/">1st Korea Node.js Conference ::: #PlayNode</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="p right">
-      <input type="button" data-action="right" value="right">
-    </div>
-    <div id="status"></div>
-  </div>
-  <script src="/javascripts/jquery.min.js"></script>
-  <script src="/javascripts/socket.io.js"></script>
-  <script>
-    var sessid = "<%=sessid%>";
+    <div class="container">
+      <h1>Your Controller</h1> 
 
-    var h = 'http://socket.nodeman.org';
-    var s = io.connect(h);
+      <div class="pull-left">
+          <a href="#" class="btn btn-danger btn-large" data-action="left">
+              <i class="icon-backward icon-white"></i>
+              <span><strong>Left</strong></span>       
+          </a>  
+      </div>
+      <div class="pull-right">
+          <a href="#" class="btn btn-primary btn-large" data-action="right">
+            <span><strong>Right</strong></span>          
+            <i class="icon-forward icon-white"></i>
+          </a>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>(c) Copyright 2012 nanhapark</p>
+        <p>Author: <a href="http:/twitter.com/nanhapark">@nanhapark</a>, <a href="http://about.me/nanha">about me</a></p>
+        <p>Node.js Q&A <a href="http://nodeqa.com">http://nodeqa.com</a></p>
+        <p>KIN Programming</p>
+      </div>
+    </footer>
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/socket.io.js"></script>
+    <script>
+      var sessid = "<%=sessid%>";
+
+      var h = 'http://socket.nodeman.org';
+      var s = io.connect(h);
+      
+      s.send(sessid + ':close');
+
+      $(document.body).click(function(e) {
+        var action = $(e.target).parents('a').data('action');
     
-    s.send(sessid + ':close');
+        s.send(sessid + ':' + action);
+      });
 
-    $('.container').click(function(e) {
-      s.send(sessid + ':' + $(e.target).data('action'));
-    });
+      var status;
+      window.ondevicemotion = function(event) {
+        var ax = event.accelerationIncludingGravity.x * 2;
+        var ay = event.accelerationIncludingGravity.y * 2;
 
-    var status;
-    var Status = document.getElementById('status');
-    window.ondevicemotion = function(event) {
-      var ax = event.accelerationIncludingGravity.x * 2;
-      var ay = event.accelerationIncludingGravity.y * 2;
-
-      if(ax > 14 && status != 2){ //move right on device
-         status = 2;
-         s.send(sessid + ':right');
-         Status.innerHTML = 'right';
-      }
-      if(ax < -14 && status != 1){ //move left on device
-         status = 1;
-         s.send(sessid + ':left');
-         Status.innerHTML = 'left';
-      }
-      if(ax > -14 && ax < 14 && status != 3){ //device held steady
-         status = 3;
-         Status.innerHTML = 'center';
-      } 
-    };
-  </script>
-</body>
+        if (ax > 14 && status != 2){ //move right on device
+           status = 2;
+           s.send(sessid + ':right');
+        }
+        if (ax < -14 && status != 1){ //move left on device
+           status = 1;
+           s.send(sessid + ':left');
+        }
+        if (ax > -14 && ax < 14 && status != 3){ //device held steady
+           status = 3;
+        } 
+      };
+    </script>
+  </body>
 </html>

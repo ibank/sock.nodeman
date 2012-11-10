@@ -4,7 +4,7 @@
  * @author nanhapark
  */
 (function() {
-  if (!jQuery) { alert('not found jQuery'); return }
+  if (typeof jQuery == 'undefined') { alert('not found jQuery'); return }
 
   $('#socketio').remove();
 
