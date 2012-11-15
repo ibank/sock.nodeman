@@ -1,15 +1,24 @@
 /**
- * book mode
+ * 1st Korea Node.js Conference
+ * Expression Part
  *
  * @author nanhapark
  */
 (function() {
-  if (typeof jQuery == 'undefined') { alert('not found jQuery'); return }
+  var prefix = 'websocket bookmarklet service :: ';
+
+  if (typeof jQuery == 'undefined') { alert(prefix + 'not found jQuery'); return }
 
   $('#socketio').remove();
 
+  //
+  // core url
+  //
   var URL = 'http://socket.nodeman.org';
 
+  //
+  // express qrcode
+  //
   var QRCode = {
     remove: function() {
       $('#qrcode').fadeOut(1000, function() { $(this).remove() });
@@ -27,18 +36,23 @@
     }
   };
 
+  //
+  //
+  //
   $.getScript(URL + '/socket.io/socket.io.js', function() {
-    console.log('io load complete');
+    console.log(prefix + 'io load complete');
     //
-    // fire keyboard event
+    // controller fire keyboard event
     //
-    var fireKey = function(keycode) {
+    var ctrlfireKey = function(keycode) {
       ["keyup", "keydown"].forEach(function(a) {
-        var e = jQuery.Event(a);
-        e.keyCode = keycode;
-        $('body').trigger(e);
+        fireKey(document.documentElement, a, keycode);
       });
     };
+
+    //$(document).bind('keyup keydown', function(e) {
+    //  console.log(prefix + e.keyCode);
+    //});
     
     //
     // left, right keyboard action
@@ -48,10 +62,10 @@
         QRCode.remove()
       },
       left: function() {
-        fireKey(37)
+        ctrlfireKey(37)
       },
       right: function() {
-        fireKey(39)
+        ctrlfireKey(39)
       }
     };
 
@@ -60,8 +74,9 @@
     //
     var s = io.connect(URL);
     s.on('return', function(data) {
+      console.log(prefix + data);
       if (!E[data]) {
-        alert('not found');
+        alert(prefix + 'action not found');
         return;
       }
       E[data]()
@@ -75,4 +90,22 @@
       QRCode.append(u);
     }, 100);
   });
+
+  //
+  // w3c keyboard event fire
+  //
+  function fireKey(el, type, key) {
+    var eventObj;
+    if (document.createEventObject) {
+      eventObj = document.createEventObject();
+      eventObj.keyCode = key;
+      el.fireEvent('on' + type, eventObj);
+    } else if(document.createEvent) {
+      eventObj = document.createEvent("Events");
+      eventObj.initEvent(type, true, true);
+      eventObj.keyCode = key;
+      eventObj.which = key;
+      el.dispatchEvent(eventObj);
+    }
+  }
 })();

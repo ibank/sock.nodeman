@@ -39,7 +39,7 @@
       </div>
       <div class="pull-right">
           <a href="#" class="btn btn-primary btn-large" data-action="right">
-            <span><strong>Right</strong></span>          
+            <span><strong>Right</strong></span>
             <i class="icon-forward icon-white"></i>
           </a>
       </div>
@@ -63,7 +63,8 @@
       s.send(sessid + ':close');
 
       $(document.body).click(function(e) {
-        var action = $(e.target).parents('a').data('action');
+        var o = $(e.target);
+        var action = o[0].tagName.toUpperCase() == 'A' ? o.data('action') : o.parents('a').data('action');
     
         s.send(sessid + ':' + action);
       });
