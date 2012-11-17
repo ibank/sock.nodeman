@@ -1017,3 +1017,7 @@ form.bs-docs-example {
 
 img { border-radius: 10px }
 .footer-logo { margin: 20px 0 }
+.playnode {
+  margin: 12px 25px 0 5px;
+  width: 115px;
+}
