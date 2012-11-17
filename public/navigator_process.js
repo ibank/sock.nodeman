@@ -66,6 +66,12 @@
       },
       right: function() {
         ctrlfireKey(39)
+      },
+      up: function() {
+        ctrlfireKey(38)
+      },
+      down: function() {
+        ctrlfireKey(40)
       }
     };
 

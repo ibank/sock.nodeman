@@ -16,7 +16,7 @@
         if (typeof jQuery !== 'undefined') return;
         return plugin.jquery
       }).wait()
-      .script('http://socket.nodeman.org/book_process.js?' + (+new Date()))
+      .script('http://socket.nodeman.org/navigator_process.js?' + (+new Date()))
       ;
   });
 
