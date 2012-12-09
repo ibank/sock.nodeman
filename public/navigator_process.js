@@ -14,7 +14,7 @@
   //
   // core url
   //
-  var URL = 'http://socket.nodeman.org';
+  var URL = 'http://socket.nodeman.org:80';
 
   //
   // express qrcode
@@ -91,10 +91,10 @@
     //
     // show qrcode after received socket sessionid
     //
-    setTimeout(function() {
+    s.on('connect', function() {
       var u = URL + '/control/' + s.socket.sessionid;
       QRCode.append(u);
-    }, 100);
+    });
   });
 
   //
