@@ -1021,3 +1021,16 @@ img { border-radius: 10px }
   margin: 12px 25px 0 5px;
   width: 115px;
 }
+.thumbnails img {
+  word-wrap: break-word;
+  background: white;
+  margin-bottom: 10px;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  padding: 1px;
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 15px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 15px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5), 0px 2px 15px 0px rgba(0, 0, 0, 0.3);
+  border: 5px solid white;
+}
