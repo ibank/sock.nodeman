@@ -29,12 +29,13 @@
         <h1>Websocket Navigator Service</h1>
         <p>simple control. up down left right</p>
         <p><a href="javascript:(function(){var%20s%20=%20document.createElement('script');s.type='text/javascript';document.body.appendChild(s);s.src='http://socket.nodeman.org/navigator.js?' + (+new Date());})();" class="btn btn-primary btn-large">socket navigator</a></p>
-        <p>위의 버튼을 북마크바로 드래그앤 드롭하세요.</p>
+        <p>위의 버튼을 북마크바로 드래그앤 드롭하세요.<br>혹은 코드 Embed 도 가능합니다. 아래 참조</p>
         <p>Just drag this handy-dandy button onto your browser's Bookmarks Bar and you'll be ready to roll</p>
         <ul class="masthead-links">
-          <li>Version 1.0</li>
+          <li>Version 1.5</li>
           <li><a href="https://github.com/nanha/sock.nodeman">Source Github repo</a></li>
         </ul>
+        <br>
         <ul class="masthead-links">
           <li><a href="https://twitter.com/nanhapark" class="twitter-follow-button" data-show-count="true" data-lang="ko">@nanhapark 팔로우하기</a></li>
           <li><a href="https://twitter.com/intent/tweet?screen_name=nanhapark" class="twitter-mention-button" data-lang="ko" data-related="nanhapark">Tweet to @nanhapark</a></li>
@@ -71,7 +72,41 @@
       </div>
 
       <hr class="soften">
-      
+
+      <div class="embed">
+        <h1>Embed Code</h1>
+        <p>간단한 Markup 을 사용하여, 북마클릿을 등록하지 않아도  사용가능합니다. 이것은 발표자표 배포할 때, 유용하게 사용할 수 있습니다.</p>
+        <div class="row">
+          <div class="span5">
+            <h3>Example code</h3>
+            <textarea onclick="this.select()"><style>
+  #socket_nodeman_qrcode {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 200px;
+    z-index: 1000;
+  }
+</style>
+<div id="socket_nodeman_qrcode"></div>
+<script src="http://socket.nodeman.org/navigator.js"></script></textarea>
+
+          </div>
+          <div class="span7">
+            <h3>howto play</h3>
+            <ol class="tutorial">
+              <li>QRCode 가 삽입될 HTML Element 를 삽입하고, id Attribute 값을 <span class="label label-important">socket_nodeman_qrcode</span> 으로 지정합니다. id 값이 상이할 시 북마클릿 서비스와 같이 QRCode가 레이어로 보여집니다.</li>
+              <li>해당 엘리먼트에 대한 <span class="label label-important">CSS</span> 를 선언합니다.</li>
+              <li>마지막으로 프로세스 코드 <span class="label label-important">&lt;script src="http://socket.nodeman.org/navigator.js">&lt;/script></span> 를 삽입합니다.</li>
+            </ol>
+          </div>
+        </div>
+        <div class="thumbnails"><img src="/images/embed_code.png"></div>
+      </div>
+
+      <hr class="soften">
+
       <h1><a name="website">Built with this service.</a></h1>
       <p class="marketing-byline"></p>
       <div class="row-fluid">

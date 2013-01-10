@@ -285,6 +285,52 @@ hr.soften {
 }
 
 
+/* Embed code section of Overview
+-------------------------------------------------- */
+
+.embed {
+  text-align: center;
+  color: #5a5a5a;
+}
+.embed div {
+  text-align: left;
+}
+.embed h1 {
+  margin: 60px 0 10px;
+  font-size: 60px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.embed h2 {
+  font-weight: 200;
+  margin-bottom: 5px;
+}
+.embed p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.embed .embed-byline {
+  margin-bottom: 40px;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.25;
+  color: #999;
+}
+.embed img {
+  display: block;
+  margin: 0 auto 30px;
+}
+.embed textarea {
+  width: 100%;
+  height: 300px;
+}
+.embed .tutorial {
+  text-align: left;
+}
+.embed .tutorial li {
+  padding: 5px 0;
+}
 
 /* Footer
 -------------------------------------------------- */
