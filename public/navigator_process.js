@@ -14,7 +14,12 @@
   //
   // core url
   //
-  var URL = 'http://socket.nodeman.org:80';
+  var URL = 'http://socket.nodeman.org';
+
+  //
+  // target id
+  //
+  var TARGET_ID = 'socket_nodeman_qrcode';
 
   //
   // express qrcode
@@ -25,14 +30,25 @@
     },
     append: function(url) {
       this.remove();
-      var a = 'http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=' + url + '&chld=H|0';
-      $('<div></div>').attr({id: 'qrcode'}).css({
-        position: 'absolute',
-        top : '10px',
-        left: '10px',
-        boxShadow: '0px 26px 190px rgba(0, 0, 0, 1)',
-        zIndex: 1000000
-      }).html('<img src="' + a + '" border="0">').appendTo(document.body).hide().fadeIn(1000);
+
+      var $target = $('#' + TARGET_ID);
+      if ($target.length > 0) {
+        var w = $target.width() || 200, h = $target.height() || 200;
+        console.log(w, h);
+        var a = 'http://chart.apis.google.com/chart?cht=qr&chs=' + w + 'x' + h + '&chl=' + url + '&chld=H|0';
+        $('<div></div>').attr({id: 'qrcode'}).css({
+          boxShadow: '0px 26px 190px rgba(0, 0, 0, 1)',
+        }).html('<img src="' + a + '" border="0">').appendTo($target).hide().fadeIn(1000);
+      } else {
+        var a = 'http://chart.apis.google.com/chart?cht=qr&chs=500x500&chl=' + url + '&chld=H|0';
+        $('<div></div>').attr({id: 'qrcode'}).css({
+          position: 'absolute',
+          top : '10px',
+          left: '10px',
+          boxShadow: '0px 26px 190px rgba(0, 0, 0, 1)',
+          zIndex: 1000000
+        }).html('<img src="' + a + '" border="0">').appendTo(document.body).hide().fadeIn(1000);
+      }
     }
   };
 
