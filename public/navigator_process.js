@@ -13,8 +13,9 @@
 
   //
   // core url
+  // 포트를 지정하지 않으면, 브라우져 포트를 따라감.
   //
-  var URL = 'http://socket.nodeman.org';
+  var URL = 'http://socket.nodeman.org:80';
 
   //
   // target id
